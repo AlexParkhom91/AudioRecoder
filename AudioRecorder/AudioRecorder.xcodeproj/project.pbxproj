@@ -14,7 +14,6 @@
 		69BDCE2B28C8E31500875C6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69BDCE2928C8E31500875C6B /* Main.storyboard */; };
 		69BDCE2D28C8E31600875C6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69BDCE2C28C8E31600875C6B /* Assets.xcassets */; };
 		69BDCE3028C8E31600875C6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69BDCE2E28C8E31600875C6B /* LaunchScreen.storyboard */; };
-		69BDCE3828C8E35000875C6B /* ExtentionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BDCE3728C8E35000875C6B /* ExtentionTableView.swift */; };
 		69BDCE3A28C8E51300875C6B /* ExtentionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BDCE3928C8E51300875C6B /* ExtentionButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +27,6 @@
 		69BDCE2C28C8E31600875C6B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		69BDCE2F28C8E31600875C6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		69BDCE3128C8E31600875C6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		69BDCE3728C8E35000875C6B /* ExtentionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionTableView.swift; sourceTree = "<group>"; };
 		69BDCE3928C8E51300875C6B /* ExtentionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,7 +63,6 @@
 				69BDCE2328C8E31500875C6B /* AppDelegate.swift */,
 				69BDCE2528C8E31500875C6B /* SceneDelegate.swift */,
 				69BDCE2728C8E31500875C6B /* ViewController.swift */,
-				69BDCE3728C8E35000875C6B /* ExtentionTableView.swift */,
 				69BDCE3928C8E51300875C6B /* ExtentionButton.swift */,
 				6967A45E28C8FC5C00B89B01 /* Extention.swift */,
 				69BDCE2928C8E31500875C6B /* Main.storyboard */,
@@ -147,7 +144,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69BDCE3828C8E35000875C6B /* ExtentionTableView.swift in Sources */,
 				69BDCE2828C8E31500875C6B /* ViewController.swift in Sources */,
 				69BDCE3A28C8E51300875C6B /* ExtentionButton.swift in Sources */,
 				69BDCE2428C8E31500875C6B /* AppDelegate.swift in Sources */,

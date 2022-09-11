@@ -25,7 +25,5 @@ extension ViewController{
         newButton.setTitleColor(UIColor.orange, for: .normal)
         
         return newButton
-        
     }
-    
 }

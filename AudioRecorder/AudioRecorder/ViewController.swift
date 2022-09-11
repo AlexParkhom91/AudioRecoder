@@ -24,24 +24,20 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     var recordSession: AVAudioSession!
-    
     var recordings = [URL]()
-    
     var meterTimer: Timer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-      
         setupUI()
         listRecordings()
         checkPermission()
+        setupBechaviour()
         
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
         audioRecorder = nil
         audioPlayer = nil
     }
@@ -49,9 +45,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
 //    MARK: - Custom methods
     
     private func setupUI() {
-      
-
-        
         let recordButton = createNewButton(buttonTitle: "Record")
         recordButton.addTarget(self, action: #selector(recordPressed), for: .touchUpInside)
         view.addSubview(recordButton)
@@ -84,8 +77,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
             
         ])
         
-      view.addSubview(listRecordingsTableView)
-        listRecordingsTableView.backgroundColor = .cyan
+        view.addSubview(listRecordingsTableView)
         listRecordingsTableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
 
@@ -98,20 +90,15 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
        
     }
     private func checkPermission() {
-        
         recordSession = AVAudioSession.sharedInstance()
         
         do {
             try recordSession.setCategory(.playAndRecord, mode: .default)
             try recordSession.setActive(true)
             recordSession.requestRecordPermission() { [unowned self] allowed in
-                
                 if allowed {
-                    
                     print("Доступ получен")
-
                 } else {
-                    
                     DispatchQueue.main.async {
                         self.recordButton.isEnabled = false
                         self.recordButton.backgroundColor = .darkGray
@@ -250,6 +237,68 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
         if !flag {
         recordButton.isEnabled = true
         stopButton.isEnabled = false
+        }
+    }
+    func setupBechaviour() {
+        listRecordingsTableView.dataSource = self
+    }
+}
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
+     
+
+
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      recordings.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let path = recordings[indexPath.row]
+
+        audioPlayer = try? AVAudioPlayer(contentsOf: path)
+
+      //  let duration = audioPlayer.duration
+
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.zeroFormattingBehavior = [.pad]
+
+      //  let fileDuration = formatter.string(from: duration)
+
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+        cell.textLabel?.text = recordings[indexPath.row].lastPathComponent
+        cell.textLabel?.numberOfLines = 2
+       // cell.detailTextLabel!.text = fileDuration.?
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let path = recordings[indexPath.row]
+
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: path)
+            audioPlayer.prepareToPlay()
+            audioPlayer.volume = 5
+            audioPlayer.play()
+        } catch {
+            self.audioPlayer = nil
+        }
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+
+        let path = recordings[indexPath.row]
+
+        if editingStyle == .delete {
+
+            do {
+                try? FileManager.default.removeItem(at: path)
+                listRecordings()
+                listRecordingsTableView.reloadData()
+            }
         }
     }
 }
